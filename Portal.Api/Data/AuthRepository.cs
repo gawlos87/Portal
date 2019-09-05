@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Portal.Api.Models;
 
 namespace Portal.Api.Data
@@ -14,10 +15,19 @@ namespace Portal.Api.Data
         {
             _dbContext = dbContext;
         }
-        public Task<User> Login(string username, string password)
+        public async Task<User> Login(string username, string password)
         {
-            throw new System.NotImplementedException();
+            var user =  await _dbContext.Users.FirstOrDefaultAsync(u => u.Username == username);
+
+            if(user == null)
+                return null;
+
+            if(!VerifiPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+                return null;
+
+            return user;
         }
+
 
         public async Task<User> Register(User user, string password)
         {
@@ -33,9 +43,12 @@ namespace Portal.Api.Data
             return user;
         }
 
-        public Task<bool> UserExists(string uesername)
+        public async Task<bool> UserExists(string username)
         {
-            throw new System.NotImplementedException();
+             if(await _dbContext.Users.AnyAsync(u => u.Username == username ))
+                return true;
+
+            return false;    
         }
         #endregion
         
@@ -48,6 +61,23 @@ namespace Portal.Api.Data
                 passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
             }
 
+        }
+
+        
+        private bool VerifiPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        {
+                using(var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
+            {
+                var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+
+                for (int i = 0; i < computedHash.Length; i++)
+                {
+                 if (computedHash[i] != passwordHash[i])
+                    return false;  
+                }
+
+                return true;
+            }
         }
         #endregion
     }
