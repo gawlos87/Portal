@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Portal.Api.Data;
+using Portal.Api.Dtos;
 using Portal.Api.Models;
 
 namespace Portal.Api.Controllers
@@ -16,19 +17,19 @@ namespace Portal.Api.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(string username, string password)
+        public async Task<IActionResult> Register(UserForRegisterDto userForRegister)
         {
-            username = username.ToLower();
+            userForRegister.Username = userForRegister.Username.ToLower();
 
-            if(await _repository.UserExists(username))
+            if(await _repository.UserExists(userForRegister.Username))
                 return BadRequest("Użytkownik o takiej nazwie już istnieje!");
 
             var userToCreate = new User
             {
-                Username = username
+                Username = userForRegister.Username
             };
 
-            var createdUser  = await _repository.Register(userToCreate, password);
+            var createdUser  = await _repository.Register(userToCreate, userForRegister.Password);
 
             return StatusCode(201);
         }
