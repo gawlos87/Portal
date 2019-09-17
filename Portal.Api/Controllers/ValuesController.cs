@@ -23,6 +23,7 @@ namespace Portal.Api.Controllers
             _dbContext = DBContext;
         }
         // GET api/values
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetValues()
         {
