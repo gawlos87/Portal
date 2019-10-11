@@ -1,15 +1,16 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Portal.Api.Models;
 
 namespace Portal.Api.Data
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : GenericRepository, IUserRepository
     {
         private readonly DataContext _context;
 
-        public UserRepository(DataContext context)
+        public UserRepository(DataContext context) : base(context)
         {
             _context = context;
         }
