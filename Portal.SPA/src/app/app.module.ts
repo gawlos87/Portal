@@ -12,6 +12,10 @@ import { RegisterComponent } from './register/register.component';
 import { AlertifyService } from './_services/alertify.service';
 import { UserService } from './_services/user.service';
 import { UsersListComponent } from './users/users-list/users-list.component';
+import { LikesComponent } from './likes/likes.component';
+import { MessagesComponent } from './messages/messages.component';
+import { RouterModule } from '@angular/router';
+import { appRoutes } from './routes';
 
 export function tokeGetter() {
    return localStorage.getItem('token');
@@ -23,7 +27,9 @@ export function tokeGetter() {
       NavComponent,
       HomeComponent,
       RegisterComponent,
-      UsersListComponent
+      UsersListComponent,
+      LikesComponent,
+      MessagesComponent
    ],
    imports: [
       BrowserModule,
@@ -32,10 +38,11 @@ export function tokeGetter() {
       JwtModule.forRoot({
          config: {
             tokenGetter: tokeGetter,
-            whitelistedDomains: ['localhost:5000'], 
+            whitelistedDomains: ['localhost:5000'],
             blacklistedRoutes: ['localhost:5000/api/auth']
          }
-      })
+      }),
+      RouterModule.forRoot(appRoutes)
    ],
    providers: [
       AuthService,
