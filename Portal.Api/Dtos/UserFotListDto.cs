@@ -2,7 +2,7 @@ using System;
 
 namespace Portal.Api.Dtos
 {
-    public class UserFotListDto
+    public class UserForListDto
     {
         public int Id { get; set; }
         public string Username { get; set; }

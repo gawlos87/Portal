@@ -49,7 +49,7 @@ namespace Portal.Api.Dtos
         public string FriendWouldDectiptionMe { get; set;}
 
         //Zdjecia
-        public ICollection<Photo> Photos { get; set; }
+        public ICollection<PhotosForDetailedDto> Photos { get; set; }
         public string PhotoUrl { get; set; }
 
     }
