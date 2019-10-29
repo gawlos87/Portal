@@ -20,6 +20,7 @@ import { appRoutes } from './routes';
 import { AuthGuard } from './_guards/auth.guard';
 import { from } from 'rxjs';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
+import { UserCardComponent } from './users/user-card/user-card.component';
 
 export function tokeGetter() {
    return localStorage.getItem('token');
@@ -33,7 +34,8 @@ export function tokeGetter() {
       RegisterComponent,
       UsersListComponent,
       LikesComponent,
-      MessagesComponent
+      MessagesComponent,
+      UserCardComponent
    ],
    imports: [
       BrowserModule,
