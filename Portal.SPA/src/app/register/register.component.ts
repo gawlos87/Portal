@@ -11,7 +11,7 @@ export class RegisterComponent implements OnInit {
 
   @Output() cancelRegister = new EventEmitter();
   model: any = {};
-  
+
   constructor( private authService: AuthService, private alertify: AlertifyService ) { }
 
   ngOnInit() {
@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
     this.authService.register(this.model).subscribe(() => {
       this.alertify.success('rejestracja udana');
     }, error => {
-      this.alertify.error('Wystąpił błąd rejestracji');
+      this.alertify.error(error);
     });
   }
 

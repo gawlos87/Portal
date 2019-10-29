@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -25,11 +26,11 @@ namespace Portal.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
-            var users = await _repo.GetUsers();
+                var users = await _repo.GetUsers();
 
-            var usersToReturn = _mapper.Map<IEnumerable<UserForListDto>>(users);
+                var usersToReturn = _mapper.Map<IEnumerable<UserForListDto>>(users);
 
-            return Ok(usersToReturn);
+                return Ok(usersToReturn);
         }
         
         [HttpGet("{id}")]

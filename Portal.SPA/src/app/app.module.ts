@@ -19,6 +19,7 @@ import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
 import { AuthGuard } from './_guards/auth.guard';
 import { from } from 'rxjs';
+import { ErrorInterceptorProvider } from './_services/error.interceptor';
 
 export function tokeGetter() {
    return localStorage.getItem('token');
@@ -52,7 +53,8 @@ export function tokeGetter() {
       AuthService,
       AlertifyService,
       UserService,
-      AuthGuard
+      AuthGuard,
+      ErrorInterceptorProvider
    ],
    bootstrap: [
       AppComponent
