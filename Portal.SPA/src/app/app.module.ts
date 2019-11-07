@@ -22,6 +22,8 @@ import { from } from 'rxjs';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { UserCardComponent } from './users/user-card/user-card.component';
 import { UserDetailComponent } from './users/user-detail/user-detail.component';
+import { UserDetailResolver } from './_resolvers/user-detail.resolver';
+import { UserListResolver } from './_resolvers/user-list.resolver';
 
 export function tokeGetter() {
    return localStorage.getItem('token');
@@ -59,7 +61,9 @@ export function tokeGetter() {
       AlertifyService,
       UserService,
       AuthGuard,
-      ErrorInterceptorProvider
+      ErrorInterceptorProvider,
+      UserDetailResolver,
+      UserListResolver
    ],
    bootstrap: [
       AppComponent
